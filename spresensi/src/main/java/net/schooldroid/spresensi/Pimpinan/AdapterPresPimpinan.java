@@ -23,7 +23,9 @@ public class AdapterPresPimpinan extends RecyclerView.Adapter<AdapterPresPimpina
     Activity activity;
 
     public AdapterPresPimpinan(ArrayList<ObjKehadiran> arrayList, Activity activity) {
-        Collections.sort(arrayList,ObjKehadiran.SortJamMasuk);
+        if(arrayList!=null) {
+            Collections.sort(arrayList, ObjKehadiran.SortJamMasuk);
+        }
         this.arrayList = arrayList;
         this.activity = activity;
     }

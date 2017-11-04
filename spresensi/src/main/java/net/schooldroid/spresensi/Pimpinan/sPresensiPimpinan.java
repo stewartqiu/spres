@@ -22,6 +22,8 @@ import net.schooldroid.spresensi.Utils.SettingID;
 import net.schooldroid.ssetting.Setting.SqliteSetting;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -105,7 +107,6 @@ public class sPresensiPimpinan extends Fragment {
 
         ArrayList<String> listTanggal = new ArrayList<>();
         listTanggal.add(now);
-        listTanggal.add("03-11-2017");
 
         ArrayList<String>tgl = dataKehadiran.ambilTanggal();
         if(tgl!=null){
@@ -116,6 +117,13 @@ public class sPresensiPimpinan extends Fragment {
             }
         }
 
+        /*Collections.sort(listTanggal, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s2.compareToIgnoreCase(s1);
+            }
+        });
+*/
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getContext(),R.layout.sp_tanggal_item,listTanggal);
         adapter1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spTanggal.setAdapter(adapter1);
