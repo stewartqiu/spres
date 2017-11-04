@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import net.schooldroid.spresensi.Karyawan.AdapterPresKaryawan;
 import net.schooldroid.spresensi.R;
 import net.schooldroid.spresensi.Utils.ObjKehadiran;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Jekky on 03/11/2017.
@@ -23,6 +23,7 @@ public class AdapterPresPimpinan extends RecyclerView.Adapter<AdapterPresPimpina
     Activity activity;
 
     public AdapterPresPimpinan(ArrayList<ObjKehadiran> arrayList, Activity activity) {
+        Collections.sort(arrayList,ObjKehadiran.SortJamMasuk);
         this.arrayList = arrayList;
         this.activity = activity;
     }

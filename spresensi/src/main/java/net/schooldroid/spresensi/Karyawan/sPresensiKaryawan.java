@@ -20,9 +20,6 @@ import net.schooldroid.ssetting.Setting.SqliteSetting;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class sPresensiKaryawan extends Fragment {
 
     SqliteSetting sqliteSetting;
@@ -83,14 +80,14 @@ public class sPresensiKaryawan extends Fragment {
 
     private void ambilData (){
 
+        String persid = sqliteSetting.ambil1(SettingID.persId);
+        String nama = sqliteSetting.ambil1(SettingID.namaKaryawan);
+
         if(sqlite.ambilTabel()!=null) {
-            list = sqlite.ambilTabel();
+            list = sqlite.ambil(DataKehadiran.key_persId,persid);
         }
         else{
             //FAKE
-
-            String persid = sqliteSetting.ambil1(SettingID.persId);
-            String nama = sqliteSetting.ambil1(SettingID.namaKaryawan);
 
             sqlite.simpanKaryawan(persid,nama,"18-10-2017","08:00:00","17:00:00");
             sqlite.simpanKaryawan(persid,nama,"19-10-2017","08:00:00","17:00:00");
@@ -105,7 +102,7 @@ public class sPresensiKaryawan extends Fragment {
             sqlite.simpanKaryawan(persid,nama,"28-10-2017","08:00:00","17:00:00");
             sqlite.simpanKaryawan(persid,nama,"29-10-2017","08:00:00","17:00:00");
             sqlite.simpanKaryawan(persid,nama,"30-10-2017","08:00:00","17:00:00");
-            list = sqlite.ambilTabel();
+            list = sqlite.ambil(DataKehadiran.key_persId,persid);
         }
     }
 

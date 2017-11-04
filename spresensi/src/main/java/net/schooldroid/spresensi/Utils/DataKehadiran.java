@@ -138,6 +138,31 @@ public class DataKehadiran extends SQLiteOpenHelper {
         }
     }
 
+    public ArrayList<String> ambilTanggal(){
+
+        ArrayList<String> result = new ArrayList<>();
+
+        String query = "select " + key_tanggal + " from " + namaTabel;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        if(isTableExists(namaTabel,db)) {
+
+            Cursor cursor = db.rawQuery(query, null);
+            while (cursor.moveToNext()) {
+                for (int i = 0 ; i < cursor.getColumnCount();i++){
+                    result.add(cursor.getString(i));
+                }
+            }
+
+            cursor.close();
+            return result;
+        }
+        else{
+            return null;
+        }
+
+    }
+
     public ArrayList<ObjKehadiran> ambilTabel () {
         ArrayList<ObjKehadiran> result = new ArrayList<>();
 

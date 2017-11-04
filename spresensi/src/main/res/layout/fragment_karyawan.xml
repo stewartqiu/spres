@@ -87,7 +87,8 @@
             android:layout_below="@+id/a"
             android:id="@+id/reviewPresensiKaryawan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
 
     </RelativeLayout>
 
