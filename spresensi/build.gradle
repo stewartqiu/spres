@@ -31,8 +31,8 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.github.GrenderG:Toasty:1.2.5'
-    compile 'com.github.stewartqiu.test1:ssetting:0.0.6'
-    compile 'com.github.stewartqiu.test1:sdatelib:0.0.6'
-    compile 'com.github.stewartqiu.test1:sgps:0.0.6'
+    compile 'com.github.stewartqiu.test1:ssetting:0.0.7'
+    compile 'com.github.stewartqiu.test1:sdatelib:0.0.7'
+    compile 'com.github.stewartqiu.test1:sgps:0.0.7'
     testCompile 'junit:junit:4.12'
 }

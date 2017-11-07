@@ -15,6 +15,8 @@ import android.widget.Toast;
 import net.schooldroid.spresensi.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 import net.schooldroid.sdatelib.sDate;
 import net.schooldroid.spresensi.Utils.DataKehadiran;
 import net.schooldroid.spresensi.Utils.ObjKehadiran;
@@ -36,6 +38,7 @@ public class AdapterPresKaryawan extends RecyclerView.Adapter<AdapterPresKaryawa
     String persid;
 
     public AdapterPresKaryawan(ArrayList<ObjKehadiran> list, Activity activity){
+        Collections.sort(list,ObjKehadiran.SortTglBesar);
         arrayList = list;
         this.activity = activity;
         sqlite = new DataKehadiran(activity);
@@ -124,10 +127,10 @@ public class AdapterPresKaryawan extends RecyclerView.Adapter<AdapterPresKaryawa
 
                             notifyDataSetChanged();
 
-                            Toasty.success(activity,"Berhasil absen",Toast.LENGTH_LONG,true).show();
+                            Toasty.success(activity,activity.getString(R.string.absen_berhasil),Toast.LENGTH_LONG,true).show();
 
                         }else{
-                            Toasty.error(activity,"GPS mendeteksi bahwa anda berada diluar radius",Toast.LENGTH_LONG,true).show();
+                            Toasty.error(activity,activity.getString(R.string.diluar_radius),Toast.LENGTH_LONG,true).show();
                         }
 
                         gps.off();
@@ -178,10 +181,10 @@ public class AdapterPresKaryawan extends RecyclerView.Adapter<AdapterPresKaryawa
 
                             notifyDataSetChanged();
 
-                            Toasty.success(activity,"Berhasil absen",Toast.LENGTH_LONG,true).show();
+                            Toasty.success(activity,activity.getString(R.string.absen_berhasil),Toast.LENGTH_LONG,true).show();
 
                         }else{
-                            Toasty.error(activity,"GPS mendeteksi bahwa anda berada diluar radius",Toast.LENGTH_LONG,true).show();
+                            Toasty.error(activity,activity.getString(R.string.diluar_radius),Toast.LENGTH_LONG,true).show();
                         }
 
                         gps.off();

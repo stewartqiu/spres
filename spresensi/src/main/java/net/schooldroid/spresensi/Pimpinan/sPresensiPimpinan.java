@@ -1,17 +1,22 @@
 package net.schooldroid.spresensi.Pimpinan;
 
-
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import net.schooldroid.sdatelib.sDate;
 import net.schooldroid.spresensi.R;
@@ -22,8 +27,7 @@ import net.schooldroid.spresensi.Utils.SettingID;
 import net.schooldroid.ssetting.Setting.SqliteSetting;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Calendar;
 
 
 /**
@@ -36,7 +40,7 @@ public class sPresensiPimpinan extends Fragment {
     RecyclerView review;
     boolean setTitle;
     String title;
-    Spinner spTanggal;
+    TextView tvTanggal;
 
     DataKehadiran dataKehadiran;
 
@@ -49,26 +53,32 @@ public class sPresensiPimpinan extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pimpinan, container, false);
 
+        //setHasOptionsMenu(true);
+
         dataKehadiran = new DataKehadiran(getContext());
+        setting = new SqliteSetting(getContext());
 
         if(setTitle){
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
         }
 
-        setting = new SqliteSetting(getContext());
-
-        if(setting.ambil1(SettingID.latPerusahaan) == null || setting.ambil1(SettingID.latPerusahaan).isEmpty()) {
+      /*  if(setting.ambil1(SettingID.latPerusahaan) == null || setting.ambil1(SettingID.latPerusahaan).isEmpty()) {
             setting.simpan(SettingID.folderKehadiran,"Riau/Pekanbaru"); // TODO CONTOH
             setting.simpan(SettingID.latPerusahaan,"0.5372369");
             setting.simpan(SettingID.longPerusahaan, "101.46958");
             setting.simpan(SettingID.radius, "20");
-        }
+        }*/
 
         viewHandler(view);
 
         return view;
     }
 
+   /* @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_pimpinan,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }*/
 
     public void setTitleonToolbar (String title){
         setTitle = true;
@@ -77,27 +87,15 @@ public class sPresensiPimpinan extends Fragment {
 
     private void viewHandler(View view){
 
+        tvTanggal = view.findViewById(R.id.tvTanggalPim);
+
         review = view.findViewById(R.id.reviewPresensiPimpinan);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         review.setLayoutManager(layoutManager);
         review.setHasFixedSize(true);
 
-        spTanggal = view.findViewById(R.id.spTanggal);
-
         ambilTanggal();
-
-        spTanggal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String tanggal = spTanggal.getSelectedItem().toString().trim();
-                ambilData(tanggal);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
     }
 
@@ -105,28 +103,34 @@ public class sPresensiPimpinan extends Fragment {
 
         String now = sDate.getNow("dd-MM-yyyy");
 
-        ArrayList<String> listTanggal = new ArrayList<>();
-        listTanggal.add(now);
+        tvTanggal.setText(now);
+        ambilData(now);
 
-        ArrayList<String>tgl = dataKehadiran.ambilTanggal();
-        if(tgl!=null){
-            for(String tanggal : tgl){
-                if(!listTanggal.contains(tanggal)) {
-                    listTanggal.add(tanggal);
-                }
-            }
-        }
-
-        /*Collections.sort(listTanggal, new Comparator<String>() {
+        tvTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
-            public int compare(String s1, String s2) {
-                return s2.compareToIgnoreCase(s1);
+            public void onClick(View view) {
+
+                Calendar c = Calendar.getInstance();
+                final int day = c.get(Calendar.DAY_OF_MONTH);
+                final int month = c.get(Calendar.MONTH);
+                final int year = c.get(Calendar.YEAR);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String d = ""+i2;
+                        if(i2<10){
+                            d = "0"+i2;
+                        }
+                        String picked = d + "-" + (i1+1) + "-" + i;
+                        tvTanggal.setText(picked);
+                        ambilData(picked);
+                        Toast.makeText(getContext(), picked, Toast.LENGTH_SHORT).show();
+                    }
+                },year,month,day);
+                datePickerDialog.show();
             }
         });
-*/
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getContext(),R.layout.sp_tanggal_item,listTanggal);
-        adapter1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spTanggal.setAdapter(adapter1);
 
     }
 

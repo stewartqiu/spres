@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.schooldroid.libmerger.MainActivity">
+    tools:context="net.schooldroid.libmerger.MainActivity"
+    android:background="#F9F9F9">
 
   <!--  <fragment
         android:id="@+id/fragment"
@@ -17,6 +18,11 @@
         app:menu="@menu/menu_btm"
         android:id="@+id/btm"
         android:layout_width="match_parent"
+        android:elevation="5dp"
+        android:splitMotionEvents="true"
+        android:background="#39494c"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 

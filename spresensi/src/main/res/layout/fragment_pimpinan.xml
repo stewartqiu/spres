@@ -14,12 +14,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Spinner
+            <TextView
+                android:background="#6398dd"
+                android:elevation="2dp"
+                android:text="18-08-2017"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="#ffffff"
+                android:layout_margin="5dp"
                 android:layout_centerInParent="true"
-                android:id="@+id/spTanggal"
-                style="@style/Base.Widget.AppCompat.Spinner"
-                android:layout_width="150dp"
-                android:layout_height="50dp"/>
+                android:id="@+id/tvTanggalPim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
         </RelativeLayout>
 
@@ -43,11 +54,12 @@
                     android:layout_weight="30">
 
                     <TextView
+                        android:id="@+id/tst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="Nama"
+                        android:text="@string/nama"
                         android:gravity="center_horizontal"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
@@ -64,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="Jam Masuk"
+                        android:text="@string/masuk"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
 
@@ -81,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="Jam Pulang"
+                        android:text="@string/pulang"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
 

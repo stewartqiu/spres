@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="60dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -44,7 +44,7 @@
 
             <Button
                 android:id="@+id/btnMasukKaryawan"
-                android:text="Masuk"
+                android:text="@string/masuk"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"/>
@@ -69,7 +69,7 @@
 
             <Button
                 android:id="@+id/btnPulangKaryawan"
-                android:text="Pulang"
+                android:text="@string/pulang"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"/>

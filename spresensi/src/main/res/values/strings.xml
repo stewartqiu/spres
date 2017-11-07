@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">sPresensi</string>
 
+    <string name="tanggal">DATE</string>
+    <string name="nama">NAME</string>
+    <string name="masuk">IN</string>
+    <string name="pulang">OUT</string>
+
+    <string name="gaji">Salary</string>
+
+    <string name="diluar_radius">GPS detect that you are out of radius</string>
+    <string name="absen_berhasil">Absent Success</string>
 
 </resources>

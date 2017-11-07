@@ -62,22 +62,30 @@ public class ObjKehadiran {
         this.nama = nama;
     }
 
+    public String getTanggalTerbalik(){
+        String tanggal = getTanggal();
+        String pisah[] = tanggal.split("-");
+        String day = pisah[0];
+        String month = pisah[1];
+        String year = pisah[2];
+        return year+month+day;
+    }
 
-    public static Comparator<ObjKehadiran> SortTgl = new Comparator<ObjKehadiran>() {
+    public static Comparator<ObjKehadiran> SortTglKecil = new Comparator<ObjKehadiran>() {
         @Override
         public int compare(ObjKehadiran o1, ObjKehadiran o2) {
-            String urut1 = o1.getTanggal().toUpperCase();
-            String urut2 = o2.getTanggal().toUpperCase();
+            String urut1 = o1.getTanggalTerbalik().toUpperCase();
+            String urut2 = o2.getTanggalTerbalik().toUpperCase();
 
             return urut1.compareTo(urut2);
         }
     };
 
-    public static Comparator<ObjKehadiran> SortTglTerbalik = new Comparator<ObjKehadiran>() {
+    public static Comparator<ObjKehadiran> SortTglBesar = new Comparator<ObjKehadiran>() {
         @Override
         public int compare(ObjKehadiran o1, ObjKehadiran o2) {
-            String urut1 = o1.getTanggal().toUpperCase();
-            String urut2 = o2.getTanggal().toUpperCase();
+            String urut1 = o1.getTanggalTerbalik().toUpperCase();
+            String urut2 = o2.getTanggalTerbalik().toUpperCase();
 
             return urut2.compareTo(urut1);
         }
@@ -86,8 +94,8 @@ public class ObjKehadiran {
     public static Comparator<ObjKehadiran> SortJamMasuk = new Comparator<ObjKehadiran>() {
         @Override
         public int compare(ObjKehadiran o1, ObjKehadiran o2) {
-            String urut1 = o1.getJamMasuk().toUpperCase();
-            String urut2 = o2.getJamMasuk().toUpperCase();
+            String urut1 = o1.getTanggalTerbalik().toUpperCase();
+            String urut2 = o2.getTanggalTerbalik().toUpperCase();
 
             return urut1.compareTo(urut2);
         }

@@ -3,7 +3,7 @@
     android:id="@+id/tvSpTgl"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Tanggal"
+    android:hint="@string/tanggal"
     android:gravity="center_horizontal"
     android:textColor="#ffffff"
     android:textSize="18sp"/>

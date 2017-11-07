@@ -5,7 +5,6 @@
     tools:context="net.schooldroid.spresensi.Karyawan.sPresensiKaryawan">
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,7 +33,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="Tanggal"
+                        android:text="@string/tanggal"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
 
@@ -50,10 +49,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="Jam Masuk"
+                        android:text="@string/masuk"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
-
 
                 </RelativeLayout>
 
@@ -67,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="Jam Pulang"
+                        android:text="@string/pulang"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
 

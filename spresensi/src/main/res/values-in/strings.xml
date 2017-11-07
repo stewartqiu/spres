@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">sPresensi</string>
+
+    <string name="tanggal">TANGGAL</string>
+    <string name="nama">NAMA</string>
+    <string name="masuk">MASUK</string>
+    <string name="pulang">PULANG</string>
+
+    <string name="gaji">Gaji</string>
+    <string name="diluar_radius">GPS mendeteksi bahwa anda berada diluar radius</string>
+    <string name="absen_berhasil">Absen Berhasil</string>
+
+
+</resources>

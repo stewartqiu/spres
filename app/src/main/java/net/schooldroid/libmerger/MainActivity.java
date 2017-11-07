@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private void btmNav (){
 
         BottomNavigationViewEx btm = (BottomNavigationViewEx) findViewById(R.id.btm);
+        btm.setTextSize(9);
+        btm.enableItemShiftingMode(false);
+        btm.enableShiftingMode(false);
         btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
