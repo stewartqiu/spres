@@ -58,16 +58,11 @@ public class sPresensiPimpinan extends Fragment {
         dataKehadiran = new DataKehadiran(getContext());
         setting = new SqliteSetting(getContext());
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.tb_pres_pimpinan);
+
         if(setTitle){
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
         }
-
-      /*  if(setting.ambil1(SettingID.latPerusahaan) == null || setting.ambil1(SettingID.latPerusahaan).isEmpty()) {
-            setting.simpan(SettingID.folderKehadiran,"Riau/Pekanbaru"); // TODO CONTOH
-            setting.simpan(SettingID.latPerusahaan,"0.5372369");
-            setting.simpan(SettingID.longPerusahaan, "101.46958");
-            setting.simpan(SettingID.radius, "20");
-        }*/
 
         viewHandler(view);
 

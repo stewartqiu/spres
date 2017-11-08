@@ -10,5 +10,11 @@
 
     <string name="diluar_radius">GPS detect that you are out of radius</string>
     <string name="absen_berhasil">Absent Success</string>
+    <string name="using_mock">You are using "Mock Location" facility. Turn it off so that GPS can detect your location correctly.</string>
+    <string name="matikan_mock">Turn off</string>
+    <string name="time_not_auto">Please set your date and time automatically so that system can get the real time</string>
+    <string name="atur_tanggal">Set</string>
+    <string name="tb_pres_karyawan">Presence</string>
+    <string name="tb_pres_pimpinan">Presence</string>
 
 </resources>

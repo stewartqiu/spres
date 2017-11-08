@@ -11,6 +11,11 @@
     <string name="gaji">Gaji</string>
     <string name="diluar_radius">GPS mendeteksi bahwa anda berada diluar radius</string>
     <string name="absen_berhasil">Absen Berhasil</string>
-
+    <string name="using_mock">Anda sedang menggunakan fasilitas "Mock Location" atau "Lokasi Palsu". Matikan agar GPS dapat mendeteksi lokasi anda dengan benar.</string>
+    <string name="matikan_mock">Matikan</string>
+    <string name="time_not_auto">Mohon untuk mengatur tanggal dan waktu secara otomatis agar sistem dapat mengambil waktu yang benar</string>
+    <string name="atur_tanggal">Atur</string>
+    <string name="tb_pres_karyawan">Presensi</string>
+    <string name="tb_pres_pimpinan">Presensi</string>
 
 </resources>

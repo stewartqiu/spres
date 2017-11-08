@@ -1,10 +1,13 @@
 package net.schooldroid.spresensi.Karyawan;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,7 @@ import com.google.android.gms.location.LocationListener;
 import net.schooldroid.sdatelib.sDate;
 import net.schooldroid.spresensi.R;
 import net.schooldroid.spresensi.Utils.DataKehadiran;
+import net.schooldroid.spresensi.Utils.Function;
 import net.schooldroid.spresensi.Utils.ObjKehadiran;
 import net.schooldroid.spresensi.Utils.SettingID;
 import net.schooldroid.ssetting.Setting.SqliteSetting;
@@ -34,6 +38,7 @@ public class sPresensiKaryawan extends Fragment {
     ArrayList<ObjKehadiran> list = new ArrayList<>();
     boolean setTitle;
     String title;
+    OnAbsenListener listener;
 
     public sPresensiKaryawan() {}
 
@@ -47,20 +52,29 @@ public class sPresensiKaryawan extends Fragment {
         sqliteSetting = new SqliteSetting(getContext());
         sqlite = new DataKehadiran(getContext());
 
-        //FAKE
-       /* if(sqliteSetting.ambil1(SettingID.persId) == null || sqliteSetting.ambil1(SettingID.persId).isEmpty()){
-            sqliteSetting.simpan(SettingID.persId , "88888888");
-            sqliteSetting.simpan(SettingID.namaKaryawan,"Andi");
-        }*/
-
         initiateGps();
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.tb_pres_karyawan);
 
         if(setTitle){
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
         }
 
+        if(!Function.isTimeAutomatic(getContext())){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage(getContext().getString(R.string.time_not_auto));
+            builder.setPositiveButton(getContext().getString(R.string.atur_tanggal), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    getContext().startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
+                }
+            });
+            builder.create().show();
+        }
+        else{
+            ambilData();
+        }
 
-        ambilData();
         viewHandler(view);
 
         return view;
@@ -78,42 +92,32 @@ public class sPresensiKaryawan extends Fragment {
         review.setLayoutManager(layoutManager);
         review.setHasFixedSize(true);
 
-        addToday();
-
-        AdapterPresKaryawan adapter = new AdapterPresKaryawan(list,getActivity());
+        AdapterPresKaryawan adapter = new AdapterPresKaryawan(list,getActivity(),listener);
         review.setAdapter(adapter);
     }
 
     private void ambilData (){
+
+        String tanggal = sDate.getNow("dd-MM-yyyy");
 
         String persid = sqliteSetting.ambil1(SettingID.persId);
         String nama = sqliteSetting.ambil1(SettingID.namaKaryawan);
 
         if(sqlite.ambilTabel()!=null) {
             list = sqlite.ambil(DataKehadiran.key_persId,persid);
+
+            for(int i = 0;i<list.size();i++){
+                ObjKehadiran obj = list.get(i);
+                String tgl = obj.getTanggal();
+                String plg = obj.getJamPulang();
+                String msk = obj.getJamMasuk();
+
+                if(!tgl.equals(tanggal) && plg.isEmpty()){
+                    list.get(i).setJamPulang("-");
+                    sqlite.simpanKaryawan(persid,nama,tgl,msk,"-");
+                }
+            }
         }
-       /* else{
-            //FAKE
-
-            sqlite.simpanKaryawan(persid,nama,"18-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"19-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"20-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"21-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"22-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"23-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"24-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"25-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"26-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"27-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"28-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"29-10-2017","08:00:00","17:00:00");
-            sqlite.simpanKaryawan(persid,nama,"30-10-2017","08:00:00","17:00:00");
-            list = sqlite.ambil(DataKehadiran.key_persId,persid);
-        }*/
-    }
-
-    private void addToday(){
-        String tanggal = sDate.getNow("dd-MM-yyyy");
 
         ArrayList<String> listTanggal = sqlite.ambilTanggal();
         if (listTanggal == null || !listTanggal.contains(tanggal)) {
@@ -123,11 +127,25 @@ public class sPresensiKaryawan extends Fragment {
     }
 
     private void initiateGps(){
+
         final sGPS gps = new sGPS(getContext());
         gps.on(new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 Log.d("KAR","Initiate GPS");
+
+                boolean isMock = location.isFromMockProvider();
+                if(isMock) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage(getContext().getString(R.string.using_mock));
+                    builder.setPositiveButton(getContext().getString(R.string.matikan_mock), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            getContext().startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                        }
+                    });
+                    builder.create().show();
+                }
             }
         });
 
@@ -139,6 +157,14 @@ public class sPresensiKaryawan extends Fragment {
                 gps.off();
             }
         }, TIMER);
+    }
+
+    public void setOnAbsentListener(OnAbsenListener listener){
+        this.listener = listener;
+    }
+
+    public interface OnAbsenListener {
+        void onAbsen (ObjKehadiran data);
     }
 
 }
