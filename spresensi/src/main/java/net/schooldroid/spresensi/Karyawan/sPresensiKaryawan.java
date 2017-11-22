@@ -121,6 +121,7 @@ public class sPresensiKaryawan extends Fragment {
 
         ArrayList<String> listTanggal = sqlite.ambilTanggal();
         if (listTanggal == null || !listTanggal.contains(tanggal)) {
+            Log.d("New Tanggal", "Add");
             list.add(new ObjKehadiran("","",tanggal,"",""));
         }
 
