@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import net.schooldroid.sbottomnavigationlib.sBottomNavFrag;
 import net.schooldroid.spresensi.Karyawan.sPresensiKaryawan;
 import net.schooldroid.spresensi.Pimpinan.sPresensiPimpinan;
 import net.schooldroid.spresensi.Utils.ObjKehadiran;
@@ -22,10 +23,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btmNav();
+        //btmNav();
+
+        sBottomNavFrag btm = new sBottomNavFrag();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content,btm).commit();
+
+        sPresensiKaryawan kar = new sPresensiKaryawan();
+        kar.setOnAbsentListener(new sPresensiKaryawan.OnAbsenListener() {
+            @Override
+            public void onAbsen(ObjKehadiran objKehadiran) {
+                Log.d("MASUK",objKehadiran.getJamMasuk());
+                Log.d("PULANG",objKehadiran.getJamPulang());
+            }
+        });
+
+        btm.setFragment(null, kar, new sPresensiPimpinan(),null,null);
+
     }
 
-    private void btmNav (){
+   /* private void btmNav (){
 
         BottomNavigationViewEx btm = (BottomNavigationViewEx) findViewById(R.id.btm);
         btm.setTextSize(9);
@@ -60,5 +77,5 @@ public class MainActivity extends AppCompatActivity {
         });
         btm.setSelectedItemId(R.id.frag2);
 
-    }
+    }*/
 }

@@ -33,7 +33,6 @@ import Gps.sGPS;
 public class sPresensiKaryawan extends Fragment {
 
     SqliteSetting sqliteSetting;
-    RecyclerView review;
     DataKehadiran sqlite;
     ArrayList<ObjKehadiran> list = new ArrayList<>();
     boolean setTitle;
@@ -41,7 +40,6 @@ public class sPresensiKaryawan extends Fragment {
     OnAbsenListener listener;
 
     public sPresensiKaryawan() {}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +84,7 @@ public class sPresensiKaryawan extends Fragment {
     }
 
     private void viewHandler(View view){
-        review = view.findViewById(R.id.reviewPresensiKaryawan);
+        RecyclerView review = view.findViewById(R.id.reviewPresensiKaryawan);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         review.setLayoutManager(layoutManager);
@@ -97,6 +95,8 @@ public class sPresensiKaryawan extends Fragment {
     }
 
     private void ambilData (){
+
+        list.clear();
 
         String tanggal = sDate.getNow("dd-MM-yyyy");
 
@@ -121,15 +121,7 @@ public class sPresensiKaryawan extends Fragment {
 
         ArrayList<String> listTanggal = sqlite.ambilTanggal();
         if (listTanggal == null || !listTanggal.contains(tanggal)) {
-            Log.d("New Tanggal", "Add");
             list.add(new ObjKehadiran("","",tanggal,"",""));
-        }
-
-        if (listTanggal == null){
-            Log.d("DEBUG","listTanggal Null");
-        }
-        else if(!listTanggal.contains(tanggal)){
-            Log.d("DEBUG", "!containt ");
         }
 
     }
