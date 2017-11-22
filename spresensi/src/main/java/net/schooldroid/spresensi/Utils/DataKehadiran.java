@@ -238,9 +238,11 @@ public class DataKehadiran extends SQLiteOpenHelper {
 
         if(data!=null) {
             if(data.getCount()>0) {
+                data.close();
                 return true;
             }
         }
+
         return false;
     }
 

@@ -26,7 +26,7 @@ public class InjectData extends AppCompatActivity {
             setting.simpan(SettingID.persId, "88888888");
             setting.simpan(SettingID.namaKaryawan, "Andi");
 
-            //TODO INJECT PIMPINAN]
+            //TODO INJECT PIMPINAN
            /* DataKehadiran dataKehadiran = new DataKehadiran(this);
             dataKehadiran.simpanPimpinan("0", "123456", "Budi", "04-11-2017", "08:00", "09:00");
             dataKehadiran.simpanPimpinan("0", "213546", "Sudi", "04-11-2017", "08:00", "09:00");*/
