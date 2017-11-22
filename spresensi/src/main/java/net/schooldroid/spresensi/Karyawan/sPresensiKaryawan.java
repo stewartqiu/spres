@@ -125,6 +125,13 @@ public class sPresensiKaryawan extends Fragment {
             list.add(new ObjKehadiran("","",tanggal,"",""));
         }
 
+        if (listTanggal == null){
+            Log.d("DEBUG","listTanggal Null");
+        }
+        else if(!listTanggal.contains(tanggal)){
+            Log.d("DEBUG", "!containt ");
+        }
+
     }
 
     private void initiateGps(){
